@@ -3,11 +3,15 @@ A simple way to print PDFs on Windows without needing to have Adobe Reader insta
 
 Example:
 
-    var pdfPrinter = new SimpleFreePdfPrinter();
+    Set your target framework to net5.0-windows and then:
+
+    var pdfPrinter = new SimpleFreePdfPrinter.SimpleFreePdfPrinter();
                 
     pdfPrinter.PrintPdfToDefaultPrinter(@"..\net5.0-windows\Resources\SamplePdfFile.pdf");
                 
     // Document should print, two pages, with pages filled, from system default printer in Windows when this test is run.
+
+    There is also pdfPrinter.PrintPdfTo, if you want to specify a printer by name.
 
 Most of the libraries to do this are several hundred dollars for a license. This is free and released under MIT license. If this saved you some time, feel free to throw a few bucks my way. I'll think of you when I'm having a beer.
 
