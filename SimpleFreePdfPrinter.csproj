@@ -24,4 +24,20 @@
       <PackageReference Include="PDFsharp" Version="1.50.5147" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="SimpleFreePdfPrinter.Tests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="SimpleFreePdfPrinter.Tests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="SimpleFreePdfPrinter.Tests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Page Remove="SimpleFreePdfPrinter.Tests\**" />
+    </ItemGroup>
+
 </Project>

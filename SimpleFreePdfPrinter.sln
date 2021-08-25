@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFreePdfPrinter", "SimpleFreePdfPrinter.csproj", "{3807EBA3-B053-4211-A6FF-CCB2AE7C9FD7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFreePdfPrinter.Tests", "SimpleFreePdfPrinter.Tests\SimpleFreePdfPrinter.Tests.csproj", "{98A2075E-668E-4AC3-9CF3-05FB0883A3E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{3807EBA3-B053-4211-A6FF-CCB2AE7C9FD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3807EBA3-B053-4211-A6FF-CCB2AE7C9FD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3807EBA3-B053-4211-A6FF-CCB2AE7C9FD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98A2075E-668E-4AC3-9CF3-05FB0883A3E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98A2075E-668E-4AC3-9CF3-05FB0883A3E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98A2075E-668E-4AC3-9CF3-05FB0883A3E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98A2075E-668E-4AC3-9CF3-05FB0883A3E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
