@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.Versioning;
 using JetBrains.Annotations;
 
-namespace SimpleFreePdfPrinter.Logic
+namespace SimpleFreePdfPrinter
 {
     [PublicAPI, SupportedOSPlatform("windows")]
     

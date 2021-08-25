@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Runtime.Versioning;
 using PdfSharp.Pdf.IO;
 
-namespace SimpleFreePdfPrinter.Logic
+namespace SimpleFreePdfPrinter
 {
     public class PdfToBitmapListConverter
     {
