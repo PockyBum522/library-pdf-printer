@@ -1,7 +1,6 @@
-using System;
 using Xunit;
 
-namespace SimpleFreePdfPrinter.Tests
+namespace Jds2
 {
     public class SimpleFreePdfPrinterTests
     {

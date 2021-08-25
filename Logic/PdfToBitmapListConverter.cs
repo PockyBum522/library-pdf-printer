@@ -4,7 +4,7 @@ using System.Drawing;
 using System.IO;
 using PdfSharp.Pdf.IO;
 
-namespace SimpleFreePdfPrinter
+namespace Jds2
 {
     public class PdfToBitmapListConverter
     {

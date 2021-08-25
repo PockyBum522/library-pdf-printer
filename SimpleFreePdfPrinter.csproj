@@ -3,15 +3,17 @@
     <PropertyGroup>
         <TargetFramework>net5.0-windows</TargetFramework>
         <UseWpf>True</UseWpf>
-        <PackageId>Jds2.SimpleFreePdfPrinter</PackageId>
+        <PackageId>SimpleFreePdfPrinter</PackageId>
         <Title>SimpleFreePdfPrinter</Title>
         <Authors>Jds2.SimpleFreePdfPrinter</Authors>
         <Description>A simple way to print PDFs on Windows without needing to have Adobe Reader installed.</Description>
         <Copyright>2021</Copyright>
         <PackageProjectUrl>https://github.com/PockyBum522/net-simple-free-pdf-printer</PackageProjectUrl>
-        <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+        <PackageLicense>https://opensource.org/licenses/MIT</PackageLicense>
         <RepositoryUrl>https://github.com/PockyBum522/net-simple-free-pdf-printer</RepositoryUrl>
         <PackageTags>pdf adobe print acrobat reader printer prints printing core windows</PackageTags>
+        <RootNamespace>Jds2</RootNamespace>
+        <PackageVersion>1.1.0</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -28,18 +30,22 @@
 
     <ItemGroup>
       <Compile Remove="SimpleFreePdfPrinter.Tests\**" />
+      <Compile Remove="Jds2.SimpleFreePdfPrinter.Tests\**" />
     </ItemGroup>
 
     <ItemGroup>
       <EmbeddedResource Remove="SimpleFreePdfPrinter.Tests\**" />
+      <EmbeddedResource Remove="Jds2.SimpleFreePdfPrinter.Tests\**" />
     </ItemGroup>
 
     <ItemGroup>
       <None Remove="SimpleFreePdfPrinter.Tests\**" />
+      <None Remove="Jds2.SimpleFreePdfPrinter.Tests\**" />
     </ItemGroup>
 
     <ItemGroup>
       <Page Remove="SimpleFreePdfPrinter.Tests\**" />
+      <Page Remove="Jds2.SimpleFreePdfPrinter.Tests\**" />
     </ItemGroup>
 
 </Project>
