@@ -9,6 +9,9 @@ Example:
                 
     // Document should print, two pages, with pages filled, from system default printer in Windows when this test is run.
 
+Most of the libraries to do this are several hundred dollars for a license. This is free and released under MIT license. If this saved you some time, feel free to throw a few bucks my way. I'll think of you when I'm having a beer.
+
+Paypal: me@dsikes.com
 
 Licensed under MIT License:
     
