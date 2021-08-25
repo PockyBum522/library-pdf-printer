@@ -2,6 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0-windows</TargetFramework>
+        <UseWpf>True</UseWpf>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,6 +13,7 @@
 
     <ItemGroup>
       <PackageReference Include="Freeware.Pdf2Png" Version="1.0.1" />
+      <PackageReference Include="JetBrains.Annotations" Version="2021.2.0" />
       <PackageReference Include="PDFsharp" Version="1.50.5147" />
     </ItemGroup>
 
