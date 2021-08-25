@@ -1,4 +1,4 @@
-﻿namespace SimpleFreePdfPrinter
+﻿namespace SimpleFreePdfPrinter.Logic
 {
     public class BitmapListPrinter
     {
