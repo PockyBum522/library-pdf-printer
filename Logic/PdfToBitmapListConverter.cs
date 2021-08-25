@@ -13,7 +13,7 @@ namespace SimpleFreePdfPrinter
             using var document = PdfReader.Open(pdfFileToWork);
             
             var pageCount = document.Pages.Count;
-            Console.WriteLine("Page count of input document: {PageCount}", pageCount);
+            Console.WriteLine($"Page count of input document: { pageCount }");
             
             var outputList = new List<Bitmap>();
 

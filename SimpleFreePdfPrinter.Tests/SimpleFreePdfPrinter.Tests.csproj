@@ -23,7 +23,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Resources" />
+      <None Update="Resources\SamplePdfFile.pdf">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
