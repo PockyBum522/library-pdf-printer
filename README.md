@@ -5,7 +5,7 @@ Example:
 
     Set your target framework to net5.0-windows and then:
 
-    var pdfPrinter = new SimpleFreePdfPrinter.SimpleFreePdfPrinter();
+    var pdfPrinter = new Jds2.SimpleFreePdfPrinter();
                 
     pdfPrinter.PrintPdfToDefaultPrinter(@"..\net5.0-windows\Resources\SamplePdfFile.pdf");
                 
