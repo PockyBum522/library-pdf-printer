@@ -11,7 +11,7 @@ Example:
                 
     // Document should print, two pages, with pages filled, from system default printer in Windows when this test is run.
 
-    There is also pdfPrinter.PrintPdfTo, if you want to specify a printer by name.
+    // There is also pdfPrinter.PrintPdfTo, if you want to specify a printer by name.
 
 Most of the libraries to do this are several hundred dollars for a license. This is free and released under MIT license. If this saved you some time, feel free to throw a few bucks my way. I'll think of you when I'm having a beer.
 
