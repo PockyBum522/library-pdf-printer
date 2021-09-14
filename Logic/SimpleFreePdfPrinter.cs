@@ -4,13 +4,14 @@ using System.Drawing.Printing;
 using System.IO;
 using System.Runtime.Versioning;
 using System.Windows.Media.Imaging;
+using Jds2.Interfaces;
 using JetBrains.Annotations;
 
 namespace Jds2
 {
     [PublicAPI, SupportedOSPlatform("windows")]
     
-    public class SimpleFreePdfPrinter
+    public class SimpleFreePdfPrinter : IPdfPrinter
     {
         public void PrintPdfToDefaultPrinter(string pdfPathToPrint, int adjustmentMargin = -50)
         {
