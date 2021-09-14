@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using PdfSharp.Pdf.IO;
+using PdfSharpCore.Pdf.IO;
 
 namespace Jds2
 {

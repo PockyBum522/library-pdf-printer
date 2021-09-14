@@ -13,7 +13,9 @@
         <RepositoryUrl>https://github.com/PockyBum522/net-simple-free-pdf-printer</RepositoryUrl>
         <PackageTags>pdf adobe print acrobat reader printer prints printing core windows</PackageTags>
         <RootNamespace>Jds2</RootNamespace>
-        <PackageVersion>1.1.0</PackageVersion>
+        <PackageVersion>1.2.0</PackageVersion>
+        <AssemblyVersion>1.2.0</AssemblyVersion>
+        <FileVersion>1.2.0</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -25,7 +27,7 @@
     <ItemGroup>
       <PackageReference Include="Freeware.Pdf2Png" Version="1.0.1" />
       <PackageReference Include="JetBrains.Annotations" Version="2021.2.0" />
-      <PackageReference Include="PDFsharp" Version="1.50.5147" />
+      <PackageReference Include="PdfSharpCore" Version="1.2.20" />
     </ItemGroup>
 
     <ItemGroup>
