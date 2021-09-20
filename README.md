@@ -1,7 +1,7 @@
 # net-simple-free-pdf-printer
 A simple way to print PDFs on Windows without needing to have Adobe Reader installed. .NET 5 library
 
-Example:
+Example if you just want to print:
 
     Set your target framework to net5.0-windows and a 64-bit project, then:
 
@@ -12,6 +12,20 @@ Example:
     // Document should print, two pages, with pages filled, from system default printer in Windows when this test is run.
 
     // There is also pdfPrinter.PrintPdfTo, if you want to specify a printer by name.
+
+~~~~
+
+// To convert:
+
+var pdfConverter = new PdfToBitmapListConverter();
+
+// Output a list of paths in Temp directory, one PNG per page on disk:
+List<string> pngPathsList = pdfConverter.GetPdfPagesAsPngs(string pdfFileToWork);  
+
+// Output a list of paths in Temp directory, one PNG per page on disk:
+List<Bitmap> bitmapList = GetPdfPagesAsBitmapList(string pdfFileToWork)
+    
+~~~~
 
 Most of the libraries to do this are several hundred dollars for a license. This is free and released under MIT license. If this saved you some time, feel free to throw a few bucks my way. I'll think of you when I'm having a beer.
 
