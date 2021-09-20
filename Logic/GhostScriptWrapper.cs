@@ -118,7 +118,7 @@ namespace Jds2
     {
         #region Constants
 
-        const string GSDLL64 = "Resources\\gsdll64.dll";
+        const string GSDLL64 = "lib\\net50\\Resources\\gsdll64.dll";
         const string KERNEL32 = "kernel32";
 
         #endregion
