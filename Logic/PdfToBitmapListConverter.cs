@@ -2,15 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
 using Jds2.Interfaces;
-using JetBrains.Annotations;
 
 namespace Jds2
 {
-    [PublicAPI]
     public class PdfToBitmapListConverter : IPdfConverter
     {
         public List<Bitmap> GetPdfPagesAsBitmapList(string pdfFileToWork)

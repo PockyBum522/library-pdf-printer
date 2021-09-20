@@ -13,19 +13,15 @@
         <RepositoryUrl>https://github.com/PockyBum522/net-simple-free-pdf-printer</RepositoryUrl>
         <PackageTags>pdf adobe print acrobat reader printer prints printing core windows</PackageTags>
         <RootNamespace>Jds2</RootNamespace>
-        <PackageVersion>1.4.0</PackageVersion>
-        <AssemblyVersion>1.4.0</AssemblyVersion>
-        <FileVersion>1.4.0</FileVersion>
+        <PackageVersion>1.5.0</PackageVersion>
+        <AssemblyVersion>1.5.0</AssemblyVersion>
+        <FileVersion>1.5.0</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>
       <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
         <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\5.0.301\System.Drawing.Common.dll</HintPath>
       </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="JetBrains.Annotations" Version="2021.2.0" />
     </ItemGroup>
 
     <ItemGroup>
