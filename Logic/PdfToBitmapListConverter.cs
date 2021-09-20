@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using Jds2.Interfaces;
 
 namespace Jds2
@@ -9,7 +10,9 @@ namespace Jds2
     public class PdfToBitmapListConverter : IPdfConverter
     {
         public List<Bitmap> GetPdfPagesAsBitmapList(string pdfFileToWork)
-        {           
+        {
+            EnsureGsDllExists();
+            
             var outputTempFile = Path.GetTempFileName().Replace(".tmp", ".png");
 
             var errorsList = Pdf2Image.Convert(pdfFileToWork, outputTempFile);
@@ -23,7 +26,36 @@ namespace Jds2
 
             return outputList;
         }
-        
+
+        private void EnsureGsDllExists()
+        {
+            var applicationPath = Assembly.GetExecutingAssembly().Location;
+            
+            var gsDllPath = Path.Join(
+                Path.GetDirectoryName(applicationPath), 
+                "lib",
+                "gsdll64.dll");
+
+            var folderPath = Path.GetDirectoryName(gsDllPath);
+            
+            Directory.CreateDirectory(folderPath ?? "");
+
+            if (File.Exists(gsDllPath)) return;
+            
+            // Otherwise: 
+            var assembly = typeof(SimpleFreePdfPrinter).Assembly;
+
+            var gsDllStream = assembly.GetManifestResourceStream(@"Jds2.lib.gsdll64.dll");
+
+            if (gsDllStream == null) throw new FileNotFoundException();
+            
+            using var fileStream = File.Create(gsDllPath);
+
+            gsDllStream.Seek(0, SeekOrigin.Begin);
+                
+            gsDllStream.CopyTo(fileStream);
+        }
+
         public List<string> GetPdfPagesAsPngs(string pdfFileToWork)
         {           
             var outputTempFile = Path.GetTempFileName().Replace(".tmp", ".png");

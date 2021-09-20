@@ -13,9 +13,9 @@
         <RepositoryUrl>https://github.com/PockyBum522/net-simple-free-pdf-printer</RepositoryUrl>
         <PackageTags>pdf adobe print acrobat reader printer prints printing core windows</PackageTags>
         <RootNamespace>Jds2</RootNamespace>
-        <PackageVersion>1.5.0</PackageVersion>
-        <AssemblyVersion>1.5.0</AssemblyVersion>
-        <FileVersion>1.5.0</FileVersion>
+        <PackageVersion>1.6.0</PackageVersion>
+        <AssemblyVersion>1.6.0</AssemblyVersion>
+        <FileVersion>1.6.0</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -32,6 +32,7 @@
     <ItemGroup>
       <EmbeddedResource Remove="SimpleFreePdfPrinter.Tests\**" />
       <EmbeddedResource Remove="Jds2.SimpleFreePdfPrinter.Tests\**" />
+      <EmbeddedResource Include="lib\gsdll64.dll" />
     </ItemGroup>
 
     <ItemGroup>
@@ -46,9 +47,10 @@
 
     <ItemGroup>
       <None Remove="lib\net50\Resources\gsdll64.dll" />
-      <Resource Include="lib\net50\Resources\gsdll64.dll">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Resource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="lib\net50\gsdll64.dll" />
     </ItemGroup>
 
 </Project>

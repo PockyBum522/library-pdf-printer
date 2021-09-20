@@ -118,7 +118,7 @@ namespace Jds2
     {
         #region Constants
 
-        const string GSDLL64 = "lib\\net50\\Resources\\gsdll64.dll";
+        const string GSDLL64 = "lib\\gsdll64.dll";
         const string KERNEL32 = "kernel32";
 
         #endregion
@@ -766,7 +766,7 @@ namespace Jds2
             
             InitializePrivateMembers();
             
-            _Handle = LoadLibrary(Path.Combine(libraryPath, "Resources", "gsdll64.dll"));
+            _Handle = LoadLibrary(Path.Combine(libraryPath, "lib", "gsdll64.dll"));
             System.Diagnostics.Debug.WriteLine("GhostScript Handle = " + _Handle.ToString());
         }
 

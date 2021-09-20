@@ -22,7 +22,7 @@ namespace Jds2
     {
         #region Static
         /// <summary>The name of the DLL i'm using to work</summary>
-        public const string GhostScriptDLLName = "lib\\net50\\Resources\\gsdll64.dll";
+        public const string GhostScriptDLLName = "lib\\gsdll64.dll";
         
         /// <summary>Use to check for default transformation</summary>
         /// <summary>Thanks to 	tchu_2000 to remind that u should never hardcode strings! :)</summary>
@@ -84,27 +84,27 @@ namespace Jds2
         /// <param name="argc"></param>
         /// <param name="argv"></param>
         /// <returns></returns>
-        [DllImport("lib\\net50\\Resources\\gsdll64.dll", EntryPoint="gsapi_init_with_args")]
+        [DllImport("lib\\gsdll64.dll", EntryPoint="gsapi_init_with_args")]
         private static extern int gsapi_init_with_args (IntPtr instance, int argc, IntPtr argv);
         /// <summary>
         /// Exit the interpreter. This must be called on shutdown if gsapi_init_with_args() has been called, and just before gsapi_delete_instance(). 
         /// </summary>
         /// <param name="instance"></param>
         /// <returns></returns>
-        [DllImport("lib\\net50\\Resources\\gsdll64.dll", EntryPoint="gsapi_exit")]
+        [DllImport("lib\\gsdll64.dll", EntryPoint="gsapi_exit")]
         private static extern int gsapi_exit (IntPtr instance);
 
         /// <summary>
         /// Destroy an instance of Ghostscript. Before you call this, Ghostscript must have finished. If Ghostscript has been initialised, you must call gsapi_exit before gsapi_delete_instance. 
         /// </summary>
         /// <param name="instance"></param>
-        [DllImport("lib\\net50\\Resources\\gsdll64.dll", EntryPoint="gsapi_delete_instance")]
+        [DllImport("lib\\gsdll64.dll", EntryPoint="gsapi_delete_instance")]
         private static extern void gsapi_delete_instance (IntPtr instance);
         /// <summary>Get info about the version of Ghostscript i'm using</summary>
         /// <param name="pGSRevisionInfo"></param>
         /// <param name="intLen"></param>
         /// <returns></returns>
-        [DllImport("lib\\net50\\Resources\\gsdll64.dll", EntryPoint="gsapi_revision")]
+        [DllImport("lib\\gsdll64.dll", EntryPoint="gsapi_revision")]
         private static extern int gsapi_revision (ref GS_Revision pGSRevisionInfo , int intLen );
         /// <summary>Use a different I/O</summary>
         /// <param name="lngGSInstance"></param>
@@ -112,7 +112,7 @@ namespace Jds2
         /// <param name="gsdll_stdout">Function that menage the Standard OUTPUT</param>
         /// <param name="gsdll_stderr">Function that menage the Standard ERROR output</param>
         /// <returns></returns>
-        [DllImport("lib\\net50\\Resources\\gsdll64.dll", EntryPoint = "gsapi_set_stdio")]
+        [DllImport("lib\\gsdll64.dll", EntryPoint = "gsapi_set_stdio")]
         private static extern int gsapi_set_stdio(IntPtr lngGSInstance, StdioCallBack gsdll_stdin, StdioCallBack gsdll_stdout, StdioCallBack gsdll_stderr);
 
         #endregion
