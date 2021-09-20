@@ -49,10 +49,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Resources\gsdll64.dll" />
-      <Content Include="Resources\gsdll64.dll">
+      <None Remove="lib\net50\Resources\gsdll64.dll" />
+      <Resource Include="lib\net50\Resources\gsdll64.dll">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
+      </Resource>
     </ItemGroup>
 
 </Project>
