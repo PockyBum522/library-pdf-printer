@@ -2,37 +2,72 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using PdfSharpCore.Pdf.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using Jds2.Interfaces;
+using JetBrains.Annotations;
 
 namespace Jds2
 {
-    public class PdfToBitmapListConverter
+    [PublicAPI]
+    public class PdfToBitmapListConverter : IPdfConverter
     {
         public List<Bitmap> GetPdfPagesAsBitmapList(string pdfFileToWork)
-        {
-            using var document = PdfReader.Open(pdfFileToWork);
-            
-            var pageCount = document.Pages.Count;
-            Console.WriteLine($"Page count of input document: { pageCount }");
-            
+        {           
+            var outputTempFile = Path.GetTempFileName().Replace(".tmp", ".png");
+
+            var errorsList = Pdf2Image.Convert(pdfFileToWork, outputTempFile);
+
+            var pagePaths = GetAllMatchingPagePngs(
+                Path.GetFileNameWithoutExtension(outputTempFile));
+         
             var outputList = new List<Bitmap>();
-
-            using var inputStream = new FileStream(pdfFileToWork, FileMode.Open, FileAccess.Read);
             
-            var bytesArrays = Freeware.Pdf2Png.ConvertAllPages(
-                inputStream);
+            ConvertFilePathList(pagePaths, outputList);
 
-            foreach (var byteArrayImage in bytesArrays)
+            return outputList;
+        }
+        
+        public List<string> GetPdfPagesAsPngs(string pdfFileToWork)
+        {           
+            var outputTempFile = Path.GetTempFileName().Replace(".tmp", ".png");
+
+            var errorsList = Pdf2Image.Convert(pdfFileToWork, outputTempFile);
+
+            var pagePaths = GetAllMatchingPagePngs(
+                Path.GetFileNameWithoutExtension(outputTempFile));
+         
+            return pagePaths;
+        }
+
+        private static void ConvertFilePathList(List<string> pagePaths, List<Bitmap> outputList)
+        {
+            foreach (var pagePath in pagePaths)
             {
-                using MemoryStream pngStream = new MemoryStream(byteArrayImage);
-                
+                using MemoryStream pngStream = new MemoryStream(File.ReadAllBytes(pagePath));
+
                 var outputImage = Image.FromStream(pngStream);
-    
+
                 var bitmapOfPage = new Bitmap(outputImage);
-            
+
                 outputList.Add(bitmapOfPage);
             }
+        }
 
+        private List<string> GetAllMatchingPagePngs(string fileNameOnlyToMatch)
+        {
+            var tempDirectoryInfo = new DirectoryInfo(Path.GetTempPath());
+
+            var outputFileNames = tempDirectoryInfo.GetFiles($"*{fileNameOnlyToMatch}*.png");    // Get all files matching pattern of file without extension
+
+            var outputList = new List<string>();
+
+            foreach (var fileName in outputFileNames)
+            {
+                outputList.Add(fileName.FullName);
+            }
+            
             return outputList;
         }
     }
