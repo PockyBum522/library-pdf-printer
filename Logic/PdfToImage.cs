@@ -62,7 +62,7 @@ namespace Jds2
             string error = null;
             List<string> errors = new List<string>();
             
-            String gsPath = GetProgramFilePath("lib\\gsdll64.dll", out error);
+            String gsPath = GetProgramFilePath(@"lib\gsdll64.dll", out error);
             
             if (!System.IO.File.Exists(gsPath))
             {
