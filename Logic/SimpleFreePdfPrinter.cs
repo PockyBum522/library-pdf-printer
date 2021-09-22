@@ -5,6 +5,7 @@ using System.IO;
 using System.Runtime.Versioning;
 using System.Windows.Media.Imaging;
 using Jds2.Interfaces;
+using Serilog;
 
 namespace Jds2
 {
@@ -12,6 +13,13 @@ namespace Jds2
     
     public class SimpleFreePdfPrinter : IPdfPrinter
     {
+        private readonly ILogger _logger;
+
+        public SimpleFreePdfPrinter(ILogger logger = null)
+        {
+            _logger = logger;
+        }
+        
         public void PrintPdfToDefaultPrinter(string pdfPathToPrint, int adjustmentMargin = -50)
         {
             PrinterSettings settings = new PrinterSettings();
@@ -30,7 +38,7 @@ namespace Jds2
             PrintAllPages(printerName, adjustmentMargin, pagesAsBitmapList);
         }
 
-        private static void PrintAllPages(string printerName, int adjustmentMargin, List<Bitmap> pagesAsBitmapList)
+        private void PrintAllPages(string printerName, int adjustmentMargin, List<Bitmap> pagesAsBitmapList)
         {
             foreach (var page in pagesAsBitmapList)
             {

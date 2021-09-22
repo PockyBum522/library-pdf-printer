@@ -53,4 +53,8 @@
       <None Remove="lib\net50\gsdll64.dll" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Serilog" Version="2.10.0" />
+    </ItemGroup>
+
 </Project>

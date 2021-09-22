@@ -4,11 +4,19 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using Jds2.Interfaces;
+using Serilog;
 
 namespace Jds2
 {
     public class PdfToBitmapListConverter : IPdfConverter
     {
+        private readonly ILogger _logger;
+
+        public PdfToBitmapListConverter(ILogger logger = null)
+        {
+            _logger = logger;
+        }
+        
         public List<Bitmap> GetPdfPagesAsBitmapList(string pdfFileToWork)
         {
             EnsureGsDllExists();
@@ -40,9 +48,18 @@ namespace Jds2
             
             Directory.CreateDirectory(folderPath ?? "");
 
-            if (File.Exists(gsDllPath)) return;
+            _logger?.Information("Checking if file exists at: {Path}", gsDllPath);
+
+            if (File.Exists(gsDllPath))
+            {
+                _logger?.Information("File exists, halting gsDll restore"); 
+                return;
+            }
             
-            // Otherwise: 
+            // Otherwise:
+            
+            _logger?.Information("Gsdll does not exist");
+            
             var assembly = typeof(SimpleFreePdfPrinter).Assembly;
 
             var gsDllStream = assembly.GetManifestResourceStream(@"Jds2.lib.gsdll64.dll");
@@ -53,6 +70,8 @@ namespace Jds2
 
             gsDllStream.Seek(0, SeekOrigin.Begin);
                 
+            _logger?.Information("Now copying stream to file");
+            
             gsDllStream.CopyTo(fileStream);
         }
 
