@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 using Jds2.Interfaces;
+using Microsoft.VisualBasic;
 using Serilog;
 
 namespace Jds2
@@ -20,18 +22,17 @@ namespace Jds2
         public List<Bitmap> GetPdfPagesAsBitmapList(string pdfFileToWork)
         {
             EnsureGsDllExists();
-            
+
+            var outputList = new List<Bitmap>();
+                
             var outputTempFile = Path.GetTempFileName().Replace(".tmp", ".png");
 
             var errorsList = Pdf2Image.Convert(pdfFileToWork, outputTempFile);
 
-            var pagePaths = GetAllMatchingPagePngs(
-                Path.GetFileNameWithoutExtension(outputTempFile));
-         
-            var outputList = new List<Bitmap>();
-            
+            var pagePaths = GetAllMatchingPagePngs(Path.GetFileNameWithoutExtension(outputTempFile));
+     
             ConvertFilePathList(pagePaths, outputList);
-
+            
             return outputList;
         }
 
@@ -76,14 +77,25 @@ namespace Jds2
         }
 
         public List<string> GetPdfPagesAsPngs(string pdfFileToWork)
-        {           
+        {
+            var ghostScriptMutex = new Mutex(false, ResourceStrings.GhostScriptMutexString);
+
             var outputTempFile = Path.GetTempFileName().Replace(".tmp", ".png");
+                
+            var pagePaths = GetAllMatchingPagePngs(Path.GetFileNameWithoutExtension(outputTempFile));  
+                
+            try
+            {
+                ghostScriptMutex.WaitOne(10000);
+                
+                var errorsList = Pdf2Image.Convert(pdfFileToWork, outputTempFile);
 
-            var errorsList = Pdf2Image.Convert(pdfFileToWork, outputTempFile);
-
-            var pagePaths = GetAllMatchingPagePngs(
-                Path.GetFileNameWithoutExtension(outputTempFile));
-         
+            }
+            finally
+            {
+                ghostScriptMutex.ReleaseMutex();
+            }
+            
             return pagePaths;
         }
 

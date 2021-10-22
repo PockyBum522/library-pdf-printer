@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Jds2
@@ -59,53 +60,69 @@ namespace Jds2
 
         public static List<string> Convert(string filename, string img_filename)
         {
-            string error = null;
+            var ghostScriptMutex = new Mutex(false, ResourceStrings.GhostScriptMutexString);
+            
             List<string> errors = new List<string>();
             
-            String gsPath = GetProgramFilePath(@"lib\gsdll64.dll", out error);
-            
-            if (!System.IO.File.Exists(gsPath))
+            try
             {
-                throw new FileNotFoundException("Couldn't find {0}", gsPath);
-            }
-            if (error != null) errors.Add(error);
+                ghostScriptMutex.WaitOne(10000);
+                
+                string error = null;    
+            
+                String gsPath = GetProgramFilePath(@"lib\gsdll64.dll", out error);
+            
+                if (!System.IO.File.Exists(gsPath))
+                {
+                    throw new FileNotFoundException("Couldn't find {0}", gsPath);
+                }
+                if (error != null) errors.Add(error);
 
-            if (File.Exists(img_filename))
+                if (File.Exists(img_filename))
+                {
+                    throw new FileNotFoundException("Path: {0} exists but never should", img_filename);
+                }
+
+                //This is the object that perform the real conversion!
+                PdfRawConvert converter = new PdfRawConvert();
+
+                //Ok now check what version is!
+                GhostScriptRevision version = converter.GetRevision();
+
+                //lblVersion.Text = version.intRevision.ToString() + " " + version.intRevisionDate;
+                bool Converted = false;
+            
+                //Setup the converter 0 uses LogicalProcessorCount -1 
+                converter.RenderingThreads = 0;
+            
+                converter.TextAlphaBit = -1;
+                converter.TextAlphaBit = -1;
+            
+                converter.FitPage = true;
+                converter.ResolutionX = 200;
+                converter.OutputFormat = "png256";
+
+                converter.OutputToMultipleFile = true;
+                converter.FirstPageToConvert = 1;
+                converter.LastPageToConvert = -1;
+
+                System.IO.FileInfo input = new FileInfo(filename);
+                if (!string.IsNullOrEmpty(mGSPath))
+                {
+                    converter.GSPath = mGSPath;
+                }
+            
+                Converted = converter.Convert(input.FullName, img_filename);
+            }
+            catch (Exception ex)
             {
-                throw new FileNotFoundException("Path: {0} exists but never should", img_filename);
+                throw new Exception("Ghostscript caused exception", ex);
             }
-
-            //This is the object that perform the real conversion!
-            PdfRawConvert converter = new PdfRawConvert();
-
-            //Ok now check what version is!
-            GhostScriptRevision version = converter.GetRevision();
-
-            //lblVersion.Text = version.intRevision.ToString() + " " + version.intRevisionDate;
-            bool Converted = false;
-            
-            //Setup the converter 0 uses LogicalProcessorCount -1 
-            converter.RenderingThreads = 0;
-            
-            converter.TextAlphaBit = -1;
-            converter.TextAlphaBit = -1;
-            
-            converter.FitPage = true;
-            converter.ResolutionX = 200;
-            converter.OutputFormat = "png256";
-
-            converter.OutputToMultipleFile = true;
-            converter.FirstPageToConvert = 1;
-            converter.LastPageToConvert = -1;
-
-            System.IO.FileInfo input = new FileInfo(filename);
-            if (!string.IsNullOrEmpty(mGSPath))
+            finally
             {
-                converter.GSPath = mGSPath;
+                ghostScriptMutex.ReleaseMutex();
             }
             
-            Converted = converter.Convert(input.FullName, img_filename);
-
             return errors;
         }
     }
