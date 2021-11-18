@@ -9,7 +9,7 @@ using Serilog;
 
 namespace Jds2
 {
-    [SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("windows7.0")]
     public class SimpleFreePdfPrinter : IPdfPrinter
     {
         private readonly ILogger _logger;
