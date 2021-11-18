@@ -4,8 +4,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Collections;
 using System.IO;
-using System.Reflection;
-using System.Windows;
+// Resharper disable all because this is not my code
 
 namespace Jds2
 {
@@ -196,7 +195,7 @@ namespace Jds2
         /// is suggested to use png256 instead of jpeg for document!
         /// they are smaller and better suited!
         /// </summary>
-        /// <see cref="https://www.ghostscript.com/doc/current/Devices.htm"/>
+        /// <see href="https://www.ghostscript.com/doc/current/Devices.htm"/>
         public string OutputFormat
         {
             get { return _sDeviceFormat; }
@@ -205,7 +204,7 @@ namespace Jds2
 
         /// <summary>The pagesize of the output</summary>
         /// <remarks>Without this parameter the output should be letter, complain to USA for this :) if the document specify a different size it will take precedece over this!</remarks>
-        /// <see cref="https://www.ghostscript.com/doc/current/Use.htm#Known_paper_sizes"/>
+        /// <see href="https://www.ghostscript.com/doc/current/Use.htm#Known_paper_sizes"/>
         public string DefaultPageSize
         {
             get { return _sDefaultPageSize; }
@@ -433,6 +432,7 @@ namespace Jds2
         /// <param name="outputFile">The image file that will be created</param>
         /// <param name="throwException">if the function should throw an exception
         /// or display a message box</param>
+        /// <param name="options"></param>
         /// <remarks>You must pass all the parameter for the conversion
         /// as Proprieties of this class</remarks>
         /// <returns>True if the conversion succed!</returns>
@@ -469,7 +469,7 @@ namespace Jds2
 
         /// <summary>Print a file</summary>
         /// <param name="inputFile">THe file to print</param>
-        /// <param name="printParametersFile">The file with the configuration of the printer</param>
+        /// <param name="printParameters">The file with the configuration of the printer</param>
         /// <returns>True if i send the work to the printer queue</returns>
         public bool Print(string inputFile, string printParameters)
         {
@@ -670,6 +670,7 @@ namespace Jds2
         /// <summary>This function create the list of parameters to pass to the dll</summary>
         /// <param name="inputFile">the file to convert</param>
         /// <param name="outputFile">where to write the image</param>
+        /// <param name="presetParameters"></param>
         /// <returns>the list of the arguments</returns>
         private string[] GetGeneratedArgs(string inputFile, string outputFile,string[] presetParameters)
         {

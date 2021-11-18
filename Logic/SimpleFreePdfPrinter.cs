@@ -10,7 +10,6 @@ using Serilog;
 namespace Jds2
 {
     [SupportedOSPlatform("windows")]
-    
     public class SimpleFreePdfPrinter : IPdfPrinter
     {
         private readonly ILogger _logger;
@@ -27,6 +26,8 @@ namespace Jds2
             var defaultPrinterName = settings.PrinterName;
             
             PrintPdfTo(pdfPathToPrint, defaultPrinterName, adjustmentMargin);
+            
+            _logger.Information("Printed PDF to default printer");
         }
 
         public void PrintPdfTo(string pdfPathToPrint, string printerName, int adjustmentMargin = -50)
@@ -36,6 +37,8 @@ namespace Jds2
             var pagesAsBitmapList = pdfConverter.GetPdfPagesAsBitmapList(pdfPathToPrint);
 
             PrintAllPages(printerName, adjustmentMargin, pagesAsBitmapList);
+            
+            _logger.Information("Printed PDF to printer: {PrinterName}", printerName);
         }
 
         private void PrintAllPages(string printerName, int adjustmentMargin, List<Bitmap> pagesAsBitmapList)
@@ -49,7 +52,7 @@ namespace Jds2
 
                 SetLandscapePerPage(pd, bitmapImage);
 
-                pd.PrintPage += (sender, args) =>
+                pd.PrintPage += (_, args) =>
                 {
                     var imageBitmap = new Bitmap(memoryStream);
 
@@ -99,7 +102,7 @@ namespace Jds2
             page.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
             memoryStream.Position = 0;
 
-            bitmapImage = new System.Windows.Media.Imaging.BitmapImage();
+            bitmapImage = new BitmapImage();
             bitmapImage.BeginInit();
             bitmapImage.StreamSource = memoryStream;
             bitmapImage.EndInit();

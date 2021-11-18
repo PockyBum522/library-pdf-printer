@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Threading;
 using Jds2.Interfaces;
-using Microsoft.VisualBasic;
 using Serilog;
 
 namespace Jds2
@@ -27,7 +25,7 @@ namespace Jds2
                 
             var outputTempFile = Path.GetTempFileName().Replace(".tmp", ".png");
 
-            var errorsList = Pdf2Image.Convert(pdfFileToWork, outputTempFile);
+            _ = Pdf2Image.Convert(pdfFileToWork, outputTempFile);
 
             var pagePaths = GetAllMatchingPagePngs(Path.GetFileNameWithoutExtension(outputTempFile));
      
@@ -88,7 +86,7 @@ namespace Jds2
             {
                 ghostScriptMutex.WaitOne(10000);
                 
-                var errorsList = Pdf2Image.Convert(pdfFileToWork, outputTempFile);
+                _ = Pdf2Image.Convert(pdfFileToWork, outputTempFile);
 
             }
             finally

@@ -106,8 +106,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Security.Permissions;
 using System.Text;
+// ReSharper disable all
 
 namespace Jds2
 {
@@ -129,9 +129,6 @@ namespace Jds2
         {
             private int _PageCount;
 
-            private ProcessingStartedEventArgs()
-            {
-            }
             public ProcessingStartedEventArgs(int pageCount)
             {
                 _PageCount = pageCount;
@@ -150,9 +147,6 @@ namespace Jds2
             private int _Page;
             private int _PageCount;
 
-            private ProcessingPageEventArgs()
-            {
-            }
             public ProcessingPageEventArgs(int page, int pageCount)
             {
                 _Page = page;
@@ -181,9 +175,6 @@ namespace Jds2
             private int _PageCount;
             private List<string> _OuputFilenames;
 
-            private ProcessingCompletedEventArgs()
-            {
-            }
             public ProcessingCompletedEventArgs(int pageCount, List<string> ouputFilenames)
             {
                 _PageCount = pageCount;
@@ -263,46 +254,57 @@ namespace Jds2
 
             if (OnProcessingStarted != null || OnProcessingPage != null)
             {
-                string message = Marshal.PtrToStringAnsi(pointer).Trim();
+                string message = Marshal.PtrToStringAnsi(pointer)?.Trim();
 
                 if (_PageCount <= 0)
                 {
-                    // Attempt to get page count from callback message
-                    if (message.StartsWith("Processing"))
-                    {
-                        try
-                        {
-                            _PageCount = Int32.Parse(message.Substring(0, message.IndexOf("\n")).Replace("Processing pages 1 through ", String.Empty).Replace(".", String.Empty).Trim());
-                        }
-                        catch
-                        {
-                            // Ignore error in case the callback message changes
-                        }
-
-                        RaiseProcessingStartedEvent(new ProcessingStartedEventArgs(_PageCount));
-                    }
+                    AttemptToGetPageCountFromCallbackMessage(message);
                 }
 
                 // Attempt to Get page number from callback message
-                if (message.StartsWith("Page"))
-                {
-                    int page = 0;
-
-                    try
-                    {
-                        page = Int32.Parse(message.Substring(0, message.IndexOf("\n")).Replace("Page ", String.Empty).Trim());
-                    }
-                    catch
-                    {
-                        // Ignore error in case the callback message changes
-                    }
-
-                    RaiseProcessingPageEvent(new ProcessingPageEventArgs(page, _PageCount));
-                }
+                AttemptToGetPageNumberFromCallbackMessage(message);
 
             }
 
             return count;
+        }
+
+        private void AttemptToGetPageCountFromCallbackMessage(string message)
+        {
+            // Attempt to get page count from callback message
+            if (message.StartsWith("Processing"))
+            {
+                try
+                {
+                    _PageCount = Int32.Parse(message.Substring(0, message.IndexOf("\n", StringComparison.InvariantCulture))
+                        .Replace("Processing pages 1 through ", String.Empty).Replace(".", String.Empty).Trim());
+                }
+                catch
+                {
+                    // Ignore error in case the callback message changes
+                }
+
+                RaiseProcessingStartedEvent(new ProcessingStartedEventArgs(_PageCount));
+            }
+        }
+
+        private void AttemptToGetPageNumberFromCallbackMessage(string message)
+        {
+            if (message.StartsWith("Page"))
+            {
+                int page = 0;
+
+                try
+                {
+                    page = Int32.Parse(message.Substring(0, (message ?? "").IndexOf("\n", StringComparison.InvariantCulture)).Replace("Page ", String.Empty).Trim());
+                }
+                catch
+                {
+                    // Ignore error in case the callback message changes
+                }
+
+                RaiseProcessingPageEvent(new ProcessingPageEventArgs(page, _PageCount));
+            }
         }
 
         private int RaiseStdErrCallbackMessageEvent(IntPtr handle, IntPtr pointer, int count)
@@ -795,7 +797,7 @@ namespace Jds2
         }
 
         /// <summary>
-        /// Returns the Spot Colour Separation Names<br>
+        /// Returns the Spot Colour Separation Names
         /// Note: The value is only available when the CreateColorSeparations is used.
         /// </summary>
         public List<string> SpotColorSeparationNames
@@ -1007,18 +1009,18 @@ namespace Jds2
         }
 
         /// <summary>
-        /// Creates multiple output files, a full color tif and a grayscale tif for each CMYK and Spot Color separation.<br>
-        /// The SpotColorSeparationNames property will contain the spot color names.<br>
+        /// Creates multiple output files, a full color tif and a grayscale tif for each CMYK and Spot Color separation.
+        /// The SpotColorSeparationNames property will contain the spot color names.
         /// The outputFileName determines the output file naming convention.
-        /// if the outputFileName is not specified, the output files will be saved with the following naming convention:<br>
-        /// Full Color tif : FILENAME.tif<br>
-        /// Grayscale tif  : FILENAME_N.SEPARATION.tif<br>
-        /// Where:<br>
-        /// FILENAME = Input filename without extension<br>
-        /// N = Page number<br>
-        /// SEPARATION = Cyan, Magenta, Yellow, Black for CMYK Separations or the Separation Color Name<br>
+        /// if the outputFileName is not specified, the output files will be saved with the following naming convention:
+        /// Full Color tif : FILENAME.tif
+        /// Grayscale tif  : FILENAME_N.SEPARATION.tif
+        /// Where:
+        /// FILENAME = Input filename without extension
+        /// N = Page number
+        /// SEPARATION = Cyan, Magenta, Yellow, Black for CMYK Separations or the Separation Color Name
         /// If an outputFileName is specified, FILENAME above is replaced with the name supplied.
-        /// Notes:<br>
+        /// Notes:
         /// If a spot color separation file is missing for a page, there was no content on that page, even if the spot colour
         /// is listed in SpotColorSeparationNames.
         /// </summary>
@@ -1153,7 +1155,6 @@ namespace Jds2
         /// <summary>
         /// Calls the GhostScript interpreter with the command arguments specified.
         /// </summary>
-        /// <param name="commandArguments"></param>
         public void CallGSDll(string[] commandParameters)
         {
             int errorCode = (int)ReturnCode.e_unknownerror;
@@ -1367,7 +1368,6 @@ namespace Jds2
             /// A tiffgray file is created for each separation.
             /// See description at:
             /// <see cref="http://ghostscript.com/doc/8.54/Devices.htm#TIFF"/>
-            /// </summary>
             /// </summary>
             /// <returns></returns>
             public static DeviceOption[] tiffsep()
@@ -1612,7 +1612,6 @@ namespace Jds2
         /// <summary>
         /// Returns the error message for the specified GhostScript error code
         /// </summary>
-        /// <param name="errorCode"></param>
         /// <returns></returns>
         private static string GetGSErrorMessage(int returnCode)
         {

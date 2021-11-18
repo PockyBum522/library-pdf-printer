@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Jds2
 {
     public static class Pdf2Image
     {
-        private static string mGSPath = null;
+        private static string mGSPath;
         public static string GSPath
         {
             get { return mGSPath; }
@@ -25,12 +22,7 @@ namespace Jds2
             set { mPrintQuality = value; }
         }
 
-        private static string getDataPath(string relativePath)
-        {
-            string dataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            return Path.Combine(dataDir, relativePath);
-        }
-
+        
         public static string GetAppRoot(out string error)
         {
             error = null;
@@ -47,14 +39,13 @@ namespace Jds2
 
         public static string GetProgramFilePath(string relative_path, out string error)
         {
-            string app_root = GetAppRoot(out error);
+            var app_root = GetAppRoot(out error);
             return app_root + "\\" + relative_path;
         }
 
         public static string GetProgramFilePath(string relative_path)
         {
-            string error;
-            string app_root = GetAppRoot(out error);
+            var app_root = GetAppRoot(out _);
             return app_root + "\\" + relative_path;
         }
 
@@ -62,7 +53,7 @@ namespace Jds2
         {
             var ghostScriptMutex = new Mutex(false, ResourceStrings.GhostScriptMutexString);
             
-            List<string> errors = new List<string>();
+            var errors = new List<string>();
             
             try
             {
@@ -70,9 +61,9 @@ namespace Jds2
                 
                 string error = null;    
             
-                String gsPath = GetProgramFilePath(@"lib\gsdll64.dll", out error);
+                var gsPath = GetProgramFilePath(@"lib\gsdll64.dll", out error);
             
-                if (!System.IO.File.Exists(gsPath))
+                if (!File.Exists(gsPath))
                 {
                     throw new FileNotFoundException("Couldn't find {0}", gsPath);
                 }
@@ -84,14 +75,13 @@ namespace Jds2
                 }
 
                 //This is the object that perform the real conversion!
-                PdfRawConvert converter = new PdfRawConvert();
+                var converter = new PdfRawConvert();
 
                 //Ok now check what version is!
-                GhostScriptRevision version = converter.GetRevision();
+                _ = converter.GetRevision();
 
                 //lblVersion.Text = version.intRevision.ToString() + " " + version.intRevisionDate;
-                bool Converted = false;
-            
+                
                 //Setup the converter 0 uses LogicalProcessorCount -1 
                 converter.RenderingThreads = 0;
             
@@ -106,13 +96,13 @@ namespace Jds2
                 converter.FirstPageToConvert = 1;
                 converter.LastPageToConvert = -1;
 
-                System.IO.FileInfo input = new FileInfo(filename);
+                var input = new FileInfo(filename);
                 if (!string.IsNullOrEmpty(mGSPath))
                 {
                     converter.GSPath = mGSPath;
                 }
             
-                Converted = converter.Convert(input.FullName, img_filename);
+                _ = converter.Convert(input.FullName, img_filename);
             }
             catch (Exception ex)
             {
