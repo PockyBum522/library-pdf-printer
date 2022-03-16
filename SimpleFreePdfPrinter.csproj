@@ -13,9 +13,11 @@
         <RepositoryUrl>https://github.com/PockyBum522/net-simple-free-pdf-printer</RepositoryUrl>
         <PackageTags>pdf adobe print acrobat reader printer prints printing core windows</PackageTags>
         <RootNamespace>Jds2</RootNamespace>
-        <PackageVersion>1.7.0</PackageVersion>
-        <AssemblyVersion>1.7.0</AssemblyVersion>
-        <FileVersion>1.7.0</FileVersion>
+        <PackageVersion>1.7.1</PackageVersion>
+        <AssemblyVersion>1.7.1</AssemblyVersion>
+        <FileVersion>1.7.1</FileVersion>
+        <Configurations>Debug;Release</Configurations>
+        <Platforms>x64</Platforms>
     </PropertyGroup>
 
     <ItemGroup>

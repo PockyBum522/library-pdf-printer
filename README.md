@@ -1,9 +1,20 @@
 # net-simple-free-pdf-printer
-A simple way to print PDFs on Windows without needing to have Adobe Reader installed. .NET 5 library
+
+[![Nuget](https://buildstats.info/nuget/SimpleFreePdfPrinter)](https://buildstats.info/nuget/SimpleFreePdfPrinter)
+
+[![.NET Core](https://github.com/PockyBum522/net-simple-free-pdf-printer/actions/workflows/dotnet.yml/badge.svg)](https://github.com/PockyBum522/net-simple-free-pdf-printer/actions/workflows/dotnet.yml)
+
+[![Build history](https://buildstats.info/appveyor/chart/PockyBum522/net-simple-free-pdf-printer)](https://ci.appveyor.com/project/PockyBum522/net-simple-free-pdf-printer/history)
+
+[![GitHub stars](https://img.shields.io/github/stars/PockyBum522/net-simple-free-pdf-printer.svg?style=social&label=Star&maxAge=2592000)](https://GitHub.com/PockyBum522/net-simple-free-pdf-printer/stargazers/)
+
+Please star if you find this useful!
+
+A simple way to print PDFs on Windows without needing to have Adobe Reader installed. .NET 6 library
 
 Example if you just want to print:
 
-    Set your target framework to net5.0-windows and a 64-bit project, then:
+    Set your target framework to net6.0-windows and a 64-bit project, then:
 
     var pdfPrinter = new Jds2.SimpleFreePdfPrinter();
                 

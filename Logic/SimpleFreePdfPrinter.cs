@@ -41,6 +41,7 @@ namespace Jds2
             _logger?.Information("Printed PDF to printer: {PrinterName}", printerName);
         }
 
+        
         private void PrintAllPages(string printerName, int adjustmentMargin, List<Bitmap> pagesAsBitmapList)
         {
             foreach (var page in pagesAsBitmapList)
