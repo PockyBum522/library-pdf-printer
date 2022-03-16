@@ -27,7 +27,7 @@ namespace Jds2
             
             PrintPdfTo(pdfPathToPrint, defaultPrinterName, adjustmentMargin);
             
-            _logger.Information("Printed PDF to default printer");
+            _logger?.Information("Printed PDF to default printer");
         }
 
         public void PrintPdfTo(string pdfPathToPrint, string printerName, int adjustmentMargin = -50)
@@ -38,7 +38,7 @@ namespace Jds2
 
             PrintAllPages(printerName, adjustmentMargin, pagesAsBitmapList);
             
-            _logger.Information("Printed PDF to printer: {PrinterName}", printerName);
+            _logger?.Information("Printed PDF to printer: {PrinterName}", printerName);
         }
 
         private void PrintAllPages(string printerName, int adjustmentMargin, List<Bitmap> pagesAsBitmapList)

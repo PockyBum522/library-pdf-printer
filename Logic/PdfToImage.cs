@@ -28,7 +28,7 @@ namespace Jds2
             error = null;
             try
             {
-                return Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
+                return Path.GetDirectoryName(Environment.ProcessPath);
             }
             catch (IOException e)
             {

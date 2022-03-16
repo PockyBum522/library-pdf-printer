@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
@@ -36,10 +37,10 @@ namespace Jds2
 
         private void EnsureGsDllExists()
         {
-            var applicationPath = Assembly.GetExecutingAssembly().Location;
+            var applicationPath = Path.GetDirectoryName(Environment.ProcessPath);
             
             var gsDllPath = Path.Join(
-                Path.GetDirectoryName(applicationPath), 
+                Path.GetDirectoryName(Environment.ProcessPath), 
                 "lib",
                 "gsdll64.dll");
 
@@ -61,7 +62,7 @@ namespace Jds2
             
             var assembly = typeof(SimpleFreePdfPrinter).Assembly;
 
-            var gsDllStream = assembly.GetManifestResourceStream(@"Jds2.lib.gsdll64.dll");
+            var gsDllStream = assembly.GetManifestResourceStream(@"Jds2.Resources.gsdll64.dll");
 
             if (gsDllStream == null) throw new FileNotFoundException();
             

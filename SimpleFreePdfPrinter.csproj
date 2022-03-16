@@ -26,7 +26,7 @@
     <ItemGroup>
       <EmbeddedResource Remove="SimpleFreePdfPrinter.Tests\**" />
       <EmbeddedResource Remove="Jds2.SimpleFreePdfPrinter.Tests\**" />
-      <EmbeddedResource Include="lib\gsdll64.dll" />
+      <EmbeddedResource Include="Resources\gsdll64.dll" />
     </ItemGroup>
 
     <ItemGroup>

@@ -9,7 +9,7 @@ namespace Jds2
         {
             var pdfPrinter = new SimpleFreePdfPrinter();
             
-            pdfPrinter.PrintPdfToDefaultPrinter(@"..\net5.0-windows\Resources\SamplePdfFile.pdf");
+            pdfPrinter.PrintPdfToDefaultPrinter(@"..\net6.0-windows\Resources\SamplePdfFile.pdf");
             
             // Document should print, two pages, with pages filled, from system default printer in Windows when this test is run.
         }
