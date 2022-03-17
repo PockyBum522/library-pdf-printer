@@ -1,6 +1,6 @@
 # net-simple-free-pdf-printer
 
-[![Nuget](https://buildstats.info/nuget/SimpleFreePdfPrinter)](https://buildstats.info/nuget/SimpleFreePdfPrinter)
+[![Nuget](https://buildstats.info/nuget/SimpleFreePdfPrinter)](https://www.nuget.org/packages/SimpleFreePdfPrinter)
 
 [![.NET Core](https://github.com/PockyBum522/net-simple-free-pdf-printer/actions/workflows/dotnet.yml/badge.svg)](https://github.com/PockyBum522/net-simple-free-pdf-printer/actions/workflows/dotnet.yml)
 
