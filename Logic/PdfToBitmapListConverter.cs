@@ -23,14 +23,15 @@ namespace Jds2
             EnsureGsDllExists();
 
             var outputList = new List<Bitmap>();
-                
-            var outputTempFile = Path.GetTempFileName().Replace(".tmp", ".png");
+            var outputTempFile = Path.Join(Path.GetTempPath(), $"{Guid.NewGuid()}.png");
 
             _ = Pdf2Image.Convert(pdfFileToWork, outputTempFile);
 
             var pagePaths = GetAllMatchingPagePngs(Path.GetFileNameWithoutExtension(outputTempFile));
-     
             ConvertFilePathList(pagePaths, outputList);
+            
+            foreach (var path in pagePaths)
+                File.Delete(path);
             
             return outputList;
         }
@@ -79,8 +80,7 @@ namespace Jds2
         {
             var ghostScriptMutex = new Mutex(false, ResourceStrings.GhostScriptMutexString);
 
-            var outputTempFile = Path.GetTempFileName().Replace(".tmp", ".png");
-                
+            var outputTempFile = Path.Join(Path.GetTempPath(), $"{Guid.NewGuid()}.png");
             var pagePaths = GetAllMatchingPagePngs(Path.GetFileNameWithoutExtension(outputTempFile));  
                 
             try
@@ -88,9 +88,7 @@ namespace Jds2
                 ghostScriptMutex.WaitOne(10000);
                 
                 _ = Pdf2Image.Convert(pdfFileToWork, outputTempFile);
-
-            }
-            finally
+            } finally
             {
                 ghostScriptMutex.ReleaseMutex();
             }
